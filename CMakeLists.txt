@@ -38,6 +38,19 @@ endif()
 set_property(GLOBAL PROPERTY USE_FOLDERS Off)
 
 #-----------------------------------------------------------------------------
+# Enzyme
+#-----------------------------------------------------------------------------
+
+find_package(Enzyme REQUIRED CONFIG)
+
+message("LLVM Version: " ${Enzyme_LLVM_VERSION_MAJOR})
+message("Found LLVM at: " ${Enzyme_LLVM_BINARY_DIR})
+
+# C and C++ Compilers can only be configured before project(...)
+set(CMAKE_C_COMPILER "${Enzyme_LLVM_BINARY_DIR}/bin/clang")
+set(CMAKE_CXX_COMPILER "${Enzyme_LLVM_BINARY_DIR}/bin/clang++")
+
+#-----------------------------------------------------------------------------
 # Define project name and specify version information
 #-----------------------------------------------------------------------------
 
@@ -56,6 +69,15 @@ set(CPACK_PACKAGE_VERSION_PATCH "${CHRONO_VERSION_PATCH}")
 
 # Version as a hexadecimal integer of the form 0x00MMmmPP
 set(CH_VERSION 0x00080000)
+
+#-----------------------------------------------------------------------------
+# More Enzyme
+#-----------------------------------------------------------------------------
+
+message("found dir ${Enzyme_DIR}")
+message("found ${Enzyme_FOUND}")
+get_property(importTargetsAfter DIRECTORY "${CMAKE_SOURCE_DIR}" PROPERTY IMPORTED_TARGETS)
+message("imported targets ${importTargetsAfter}")
 
 #-----------------------------------------------------------------------------
 # Detect operating system and processor for host and target
