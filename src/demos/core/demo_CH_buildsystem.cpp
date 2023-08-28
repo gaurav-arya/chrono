@@ -109,7 +109,7 @@ void example1() {
 //
 // EXAMPLE 2: build and simulate slider-crank system
 //
-double example2() {
+double example2(double x) {
     GetLog() << " Example: create a slider-crank system: \n";
 
     // The physical system: it contains all physical objects.
@@ -131,7 +131,7 @@ double example2() {
     // Set initial position of the bodies (center of mass)
     my_body_A->SetBodyFixed(true);  // truss does not move!
     my_body_B->SetPos(ChVector<>(1.0, 0.0, 0.0));
-    my_body_C->SetPos(ChVector<>(4, 0, 0));
+    my_body_C->SetPos(ChVector<>(4.0, 0, 0));
 
     // Create two markers and add them to two bodies:
     // they will be used as references for 'rod-crank'link.
@@ -146,7 +146,7 @@ double example2() {
 
     // Set absolute position of the two markers,
     // for the initial position of the 'rod-crank' link:
-    my_marker_b->Impose_Abs_Coord(ChCoordsys<>(ChVector<>(2, 0, 0)));
+    my_marker_b->Impose_Abs_Coord(ChCoordsys<>(ChVector<>(x, 0, 0))); // originally x = 2
     my_marker_c->Impose_Abs_Coord(ChCoordsys<>(ChVector<>(2, 0, 0)));
 
     // Now create a mechanical link (a revolute joint)
@@ -210,7 +210,7 @@ int main(int argc, char* argv[]) {
     example1();
 
     std::cout << "RUNNING EXAMPLE 2" << std::endl;
-    double res = example2();
+    double res = example2(10.0);
     std::cout << "result: " << res << std::endl;
 
     return 0;
