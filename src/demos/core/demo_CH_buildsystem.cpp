@@ -24,13 +24,15 @@
 #include "chrono/physics/ChLinkMotorRotationSpeed.h"
 #include "chrono/physics/ChSystemNSC.h"
 
+using namespace chrono;
+
 extern double __enzyme_autodiff(void*, double);
 double square(double x) {
     return x * x;
 }
 double dsquare(double x) {
     // This returns the derivative of square or 2 * x
-    return __enzyme_autodiff((void*) square, x);
+    return __enzyme_autodiff((void*)square, x);
 }
 
 //
@@ -107,7 +109,7 @@ void example1() {
 //
 // EXAMPLE 2: build and simulate slider-crank system
 //
-void example2() {
+double example2() {
     GetLog() << " Example: create a slider-crank system: \n";
 
     // The physical system: it contains all physical objects.
@@ -194,21 +196,22 @@ void example2() {
         sys.DoFrameDynamics(chronoTime);
 
         // Print something on the console..
-        GetLog() << "Time: " << chronoTime
-                    << "  Slider X position: " << my_link_CA->GetMarker1()->GetAbsCoord().pos.x()
-                    << "  Engine torque: " << my_motor_AB->GetMotorTorque() << "\n";
+        GetLog() << "Time: " << chronoTime << "  Slider X position: " << my_link_CA->GetMarker1()->GetAbsCoord().pos.x()
+                 << "  Engine torque: " << my_motor_AB->GetMotorTorque() << "\n";
     }
+    return my_link_CA->GetMarker1()->GetAbsCoord().pos.x();
 }
 
-using namespace chrono;
-
 int main(int argc, char* argv[]) {
-    for(double i=1; i<5; i++)
+    for (double i = 1; i < 5; i++)
         printf("square(%f)=%f, dsquare(%f)=%f", i, square(i), i, dsquare(i));
     GetLog() << "Copyright (c) 2017 projectchrono.org\nChrono version: " << CHRONO_VERSION << "\n\n";
 
     example1();
-    example2();
+
+    std::cout << "RUNNING EXAMPLE 2" << std::endl;
+    double res = example2();
+    std::cout << "result: " << res << std::endl;
 
     return 0;
 }
