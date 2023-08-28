@@ -26,13 +26,13 @@
 
 using namespace chrono;
 
-extern double __enzyme_autodiff(void*, double);
+extern double __enzyme_autodiff_dsquare(void*, double);
 double square(double x) {
     return x * x;
 }
 double dsquare(double x) {
     // This returns the derivative of square or 2 * x
-    return __enzyme_autodiff((void*)square, x);
+    return __enzyme_autodiff_dsquare((void*)square, x);
 }
 
 //
@@ -105,6 +105,9 @@ void example1() {
     GetLog() << "\n\n\nHere's the system hierarchy after modifications: \n\n ";
     sys.ShowHierarchy(GetLog());
 }
+
+
+// extern double __enzyme_autodiff_example2(void*, double);
 
 //
 // EXAMPLE 2: build and simulate slider-crank system
