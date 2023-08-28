@@ -107,7 +107,7 @@ void example1() {
 }
 
 
-// extern double __enzyme_autodiff_example2(void*, double);
+extern double __enzyme_autodiff_example2(void*, double);
 
 //
 // EXAMPLE 2: build and simulate slider-crank system
@@ -205,6 +205,10 @@ double example2(double x) {
     return my_link_CA->GetMarker1()->GetAbsCoord().pos.x();
 }
 
+double dexample2(double x) {
+    return __enzyme_autodiff_example2((void*)example2, x);
+}
+
 int main(int argc, char* argv[]) {
     for (double i = 1; i < 5; i++)
         printf("square(%f)=%f, dsquare(%f)=%f", i, square(i), i, dsquare(i));
@@ -214,7 +218,10 @@ int main(int argc, char* argv[]) {
 
     std::cout << "RUNNING EXAMPLE 2" << std::endl;
     double res = example2(10.0);
-    std::cout << "result: " << res << std::endl;
+    std::cout << "res: " << res << std::endl;
+
+    double dres = dexample2(10.0);
+    std::cout << "dres: " << dres << std::endl;
 
     return 0;
 }

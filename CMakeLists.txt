@@ -49,6 +49,8 @@ message("Found LLVM at: " ${Enzyme_LLVM_BINARY_DIR})
 # C and C++ Compilers can only be configured before project(...)
 set(CMAKE_C_COMPILER "${Enzyme_LLVM_BINARY_DIR}/bin/clang")
 set(CMAKE_CXX_COMPILER "${Enzyme_LLVM_BINARY_DIR}/bin/clang++")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flto")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto")
 
 #-----------------------------------------------------------------------------
 # Define project name and specify version information
