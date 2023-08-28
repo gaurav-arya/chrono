@@ -113,7 +113,7 @@ extern double __enzyme_autodiff_example2(void*, double);
 // EXAMPLE 2: build and simulate slider-crank system
 //
 double example2(double x) {
-    GetLog() << " Example: create a slider-crank system: \n";
+    // GetLog() << " Example: create a slider-crank system: \n";
 
     // The physical system: it contains all physical objects.
     ChSystemNSC sys;
@@ -180,13 +180,13 @@ double example2(double x) {
     my_motor_AB->SetSpeedFunction(chrono_types::make_shared<ChFunction_Const>(CH_C_PI));
     sys.AddLink(my_motor_AB);
 
-    GetLog() << "\n\n\nHere's the system hierarchy for slider-crank: \n\n ";
-    sys.ShowHierarchy(GetLog());
+    // GetLog() << "\n\n\nHere's the system hierarchy for slider-crank: \n\n ";
+    // sys.ShowHierarchy(GetLog());
 
-    GetLog() << "Now use an interator to scan through already-added constraints:\n\n";
-    for (auto link : sys.Get_linklist()) {
-        GetLog() << "   Link class: " << typeid(link).name() << "\n";
-    }
+    // GetLog() << "Now use an interator to scan through already-added constraints:\n\n";
+    // for (auto link : sys.Get_linklist()) {
+    //     GetLog() << "   Link class: " << typeid(link).name() << "\n";
+    // }
 
     // OK! NOW GET READY FOR THE DYNAMICAL SIMULATION!
 
@@ -199,8 +199,8 @@ double example2(double x) {
         sys.DoFrameDynamics(chronoTime);
 
         // Print something on the console..
-        GetLog() << "Time: " << chronoTime << "  Slider X position: " << my_link_CA->GetMarker1()->GetAbsCoord().pos.x()
-                 << "  Engine torque: " << my_motor_AB->GetMotorTorque() << "\n";
+        // GetLog() << "Time: " << chronoTime << "  Slider X position: " << my_link_CA->GetMarker1()->GetAbsCoord().pos.x()
+        //          << "  Engine torque: " << my_motor_AB->GetMotorTorque() << "\n";
     }
     return my_link_CA->GetMarker1()->GetAbsCoord().pos.x();
 }

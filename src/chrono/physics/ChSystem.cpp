@@ -165,6 +165,7 @@ void ChSystem::AddShaft(std::shared_ptr<ChShaft> shaft) {
     assembly.AddShaft(shaft);
 }
 
+__attribute__((enzyme_inactive))
 void ChSystem::AddLink(std::shared_ptr<ChLinkBase> link) {
     assembly.AddLink(link);
 }
