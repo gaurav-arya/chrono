@@ -24,9 +24,20 @@
 #include "chrono/physics/ChLinkMotorRotationSpeed.h"
 #include "chrono/physics/ChSystemNSC.h"
 
+extern double __enzyme_autodiff(void*, double);
+double square(double x) {
+    return x * x;
+}
+double dsquare(double x) {
+    // This returns the derivative of square or 2 * x
+    return __enzyme_autodiff((void*) square, x);
+}
+
 using namespace chrono;
 
 int main(int argc, char* argv[]) {
+    for(double i=1; i<5; i++)
+        printf("square(%f)=%f, dsquare(%f)=%f", i, square(i), i, dsquare(i));
     GetLog() << "Copyright (c) 2017 projectchrono.org\nChrono version: " << CHRONO_VERSION << "\n\n";
 
     {
